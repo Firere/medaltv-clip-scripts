@@ -1,10 +1,10 @@
-from datetime import datetime
 from json import loads
-from os import environ
 
 from pyperclip import copy
 
+from util import getClips, getDate
+
 while True:
 	uuid = input()
-	with open(environ["APPDATA"] + "\\Medal\\store\\clips.json", "r", encoding="utf-8") as clips:
-		copy(" (" + str(datetime.fromtimestamp(loads(clips.read())[uuid]["TimeCreated"])) + ")")
+	with getClips() as clips:
+		copy(" (" + getDate(loads(clips.read())[uuid]["TimeCreated"]) + ")")
