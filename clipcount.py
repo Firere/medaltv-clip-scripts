@@ -1,10 +1,17 @@
 from json import loads
+from sys import argv
 
-from util import getClips
+from util import getClips, searchIncludingDate
 
-with getClips() as clips:
-	conv = loads(clips.read())
-	i = 0
-	for _ in conv:
-		i += 1
-	print(i)
+with getClips() as clipsJson:
+	clips = loads(clipsJson.read())
+
+	if argv[1] == None:
+		print(len(clips))
+	else:
+		for uuid in clips:
+			clip = clips[uuid]
+			i = 0
+			if searchIncludingDate(argv[1], clip):
+				i += 1
+			print(i)

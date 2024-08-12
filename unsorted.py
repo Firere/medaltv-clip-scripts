@@ -1,7 +1,7 @@
 from json import loads
 from sys import argv
 
-from util import getClips, getDate
+from util import getClips, getDate, searchIncludingDate
 
 with getClips() as clipsJson:
 	query = argv[1] or input("Search through clips not in an album: ")
@@ -9,7 +9,7 @@ with getClips() as clipsJson:
 	hits = dict()
 	for uuid in clips:
 		clip = clips[uuid]
-		if (query in clip["GameTitle"] or query in getDate(clip["TimeCreated"])) and ("contentCollections" not in clip["Content"] or clip["Content"]["contentCollections"] == []):
+		if searchIncludingDate(query, clip) and ("contentCollections" not in clip["Content"] or clip["Content"]["contentCollections"] == []):
 			hits[uuid] = clip
 	
 	if len(hits) > 0:
