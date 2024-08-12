@@ -9,9 +9,9 @@ with getClips() as clipsJson:
 	if argv[1] == None:
 		print(len(clips))
 	else:
+		i = 0
 		for uuid in clips:
 			clip = clips[uuid]
-			i = 0
 			if searchIncludingDate(argv[1], clip):
 				i += 1
-			print(i)
+		print(i)
