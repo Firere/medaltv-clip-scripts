@@ -4,7 +4,7 @@ from sys import argv
 from util import getClips, getDate, searchIncludingDate
 
 with getClips() as clipsJson:
-	query = argv[1] or input("Search through clips not in an album: ")
+	query = argv[1] if len(argv) > 1 else input("Search through clips not in an album: ")
 	clips = loads(clipsJson.read())
 	hits = 0
 	for uuid in clips:
