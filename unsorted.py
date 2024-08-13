@@ -14,8 +14,8 @@ with getClips() as clipsJson:
 			continue
 
 		hits += 1
-		print("\t" + clip["GameTitle"])
-		print("\t\t" + "Recorded: " + getDate(clip["TimeCreated"]))
+		print(clip["GameTitle"])
+		print("\t" + "Recorded: " + getDate(clip["TimeCreated"]))
 		if "publishedAt" in clip:
 			print("\t\t" + "Published: " + getDate(clip["publishedAt"] / 1000))
 	
