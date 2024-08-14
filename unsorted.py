@@ -12,7 +12,7 @@ def getUnsortedClips(verbose=False):
 		for uuid in clips:
 			clip = clips[uuid]
 
-			if not (searchIncludingDate(query, clip) and ("contentCollections" not in clip["Content"] or clip["Content"]["contentCollections"] == [])): continue
+			if not (searchIncludingDate(query, clip) and ("Content" not in clip or "contentCollections" not in clip["Content"] or clip["Content"]["contentCollections"] == [])): continue
 
 			hits[uuid] = clip
 			if not verbose: continue
