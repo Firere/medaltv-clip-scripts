@@ -4,11 +4,7 @@ from sys import argv
 from util import getClips, searchIncludingDate
 
 with getClips() as clipsJson:
-	query = ""
-	if len(argv) > 1:
-		query = argv[1]
-	else:
-		query = input("Search through clips: ")
+	query = argv[1] if len(argv) > 1 else input("Search through clips: ")
 	clips = loads(clipsJson.read())
 	hits = 0
 
