@@ -29,16 +29,23 @@ with getClips() as clipsJson:
 		}
 
 root = Tk()
-container = ttk.Scrollbar(root)
-container.pack(expand=True)
-ttk.Button(container, command=root.update, text="Refresh")
+canvas = Canvas(root)
+canvas.grid(column=0, row=0, sticky="nsew")
+container = ttk.Frame(canvas)
+canvas.create_window((0, 0), window=container, anchor="nw")
+ttk.Button(container, command=root.update, text="Refresh").grid(column=0, row=0)
 
+i = 1
 for date in sorted(categorised):
 	clip = categorised[date]["data"]
-	print("did a thing")
-	# fixme this doesn't want to display
-	ttk.Label(container, text=clip["GameTitle"], foreground=("#000000" if categorised[date]["sorted"] else "#FF0000"))
+	ttk.Label(container, text=clip["GameTitle"], foreground=("#000000" if categorised[date]["sorted"] else "#FF0000")).grid(column=0, row=i)
+	i += 1
 
+scrollbar = ttk.Scrollbar(root, orient="vertical", command=canvas.yview)
+scrollbar.grid(column=1, row=0, sticky="ns")
+canvas.configure(yscrollcommand=scrollbar.set)
+canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+root.grid_rowconfigure(0, weight=1)
+root.grid_columnconfigure(0, weight=1)
 root.update()
-container.pack()
 root.mainloop()
